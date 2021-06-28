@@ -37,3 +37,5 @@ yarn dev:server
 ```
 
 6 - Acesse o endereço [`http://localhost:3333/api-docs`](http://localhost:3333/api-docs)
+
+7 - Se preferir pode usar o arquivo `Insomnia_2021-06-27.json` no Insomnia
