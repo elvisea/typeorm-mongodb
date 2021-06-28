@@ -1,0 +1,22 @@
+[
+  {
+    "name": "default",
+    "type": "mongodb",
+    "host": "localhost",
+    "port": 27017,
+    "synchronize": true,
+    "logging": false,
+    "username": "mongodb",
+    "database": "test_backend",
+    "useUnifiedTopology": true,
+    "entities": [
+      "./src/modules/**/infra/typeorm/entities/*.ts"
+    ],
+    "migrations": [
+      "./src/shared/infra/typeorm/migrations/*.ts"
+    ],
+    "cli": {
+      "migrationsDir": "./src/shared/infra/typeorm/migrations"
+    }
+  }
+]

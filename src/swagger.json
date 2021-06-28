@@ -1,0 +1,230 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Api Rest: NodeJS + TypeORM + MongoDB",
+    "description": "This is an API Rest",
+    "version": "1.0.0",
+    "contact": {
+      "email": "elvis.e.amancio@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Criar Usuário",
+        "desription": "Criar novo usuário",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Elvis",
+                  "email": "elvis@gmail.com",
+                  "password": "123456"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Email address already used."
+          }
+        }
+      }
+    },
+    "/sessions": {
+      "post": {
+        "tags": ["Session"],
+        "summary": "Cria uma nova sessão",
+        "desription": "Cria uma nova sessão",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "elvis@gmail.com",
+                  "password": "123456"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Incorrect email/password combination."
+          },
+          "200": {
+            "description": "Authenticate."
+          }
+        }
+      }
+    },
+    "/profile": {
+      "put": {
+        "tags": ["Profile"],
+        "summary": "Atualizar dados do usuário",
+        "desription": "Update existing user",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "old_password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Elvis",
+                  "email": "elvis@gmail.com",
+                  "password": "123456",
+                  "old_password": "123456"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "User not found."
+          },
+          "401": {
+            "description": "E-mail already in use."
+          },
+          "402": {
+            "description": "You need to inform the old password to set a new password."
+          },
+          "404": {
+            "description": "Old password does not match."
+          }
+        }
+      },
+      "get": {
+        "tags": ["Profile"],
+        "summary": "Mostrar dados do usuário",
+        "desription": "Mostrar dados do usuário",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      },
+                      "avatar_url": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Profile"],
+        "summary": "Excluir usuário",
+        "desription": "Excluir usuário",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "elvis@gmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Deleted User."
+          },
+          "400": {
+            "description": "User not found."
+          },
+          "401": {
+            "description": "E-mail already in use."
+          },
+          "402": {
+            "description": "You need to inform the old password to set a new password."
+          },
+          "404": {
+            "description": "Old password does not match."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
